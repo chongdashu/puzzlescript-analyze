@@ -1,19 +1,14 @@
 import urllib2,re,json
 
 from bs4 import BeautifulSoup
+from puzzlescript import Script
 
 
 def parse_url(url):
 	return urllib2.urlopen(url).read()
 
-if __name__ == "__main__":
-
-	print "PuzzleScript Analyze"
-
+def download_gallery_scripts():
 	gallery_url = "http://puzzlescriptgallery.tumblr.com/"
-	editor_url = "http://www.puzzlescript.net/editor.html?hack="
-	play_url = "http://www.puzzlescript.net/play.html?p="
-
 	regex = re.compile("www.puzzlescript.net\/play.html\?p=([0-9]+)")
 	gists_url = "https://api.github.com/gists/"
 
@@ -28,6 +23,16 @@ if __name__ == "__main__":
 		f = open('../scripts/'+id+".txt", 'w')
 		f.write(content.encode('utf-8'))
 		f.close()
+
+if __name__ == "__main__":
+
+	print "PuzzleScript Analyze"
+
+	txt = open("../scripts/basic.txt").read()
+	script = Script(txt)
+
+
+
 
 
 
