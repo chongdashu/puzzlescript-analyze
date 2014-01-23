@@ -17,6 +17,8 @@ class Script(object):
 		lines = txt.split("\n")
 		for line in lines:
 			if Section.is_section(line):
+				# Check if the line has a keyword for the start
+				# of a new section.
 				print 'Parsing section: %s' %(line)
 				section = self.create_section(line)
 				
@@ -39,7 +41,7 @@ class Script(object):
 
  
 	def __repr__(self):
-		return "sections: %s" %(self.sections)
+		return "sections: %s" %(self.sections.keys())
 
 
 class Section(object):
@@ -78,22 +80,93 @@ class Section(object):
 		return self.type
 
 	def __repr__(self):
-		return "tokens: %s" %(self.tokens.keys())
+		return "%s{%s}" %(self.type.upper(), self.tokens.keys())
 
+	def parse_line(self,line):
+		match = None
+
+		# Title
+		match = re.match("([a-z]+) +(.+)", line)
+		if match:
+			token = match.group(1)
+			value = match.group(2)
+
+			self.set(token, value)
+
+	# Static methods
+	################
 	@staticmethod
 	def create(type_):
 		sectionType = type_.lower()
 
 		if sectionType == Section.TYPE_PRELUDE:
 			return PreludeSection(sectionType)
+		elif sectionType == Section.TYPE_OBJECTS:
+			return ObjectsSection(sectionType)
+		else:
+			return Section(sectionType)
 
-		return None
 
 	@staticmethod
 	def is_section(name):
 		return name.lower() in Section.TYPES
 
+	@staticmethod
+	def is_comment(line):
+		return re.match("(=)+",line) is not None
 
+	@staticmethod
+	def is_keyline(line):
+		return Section.is_section(line) or Section.is_comment(line)
+
+class ObjectsSection(Section):
+
+	def __init__(self, type_):
+		Section.__init__(self,type_)
+		# Indicates if already parsed an object declaration
+		# and that we are now currently parsing the definition
+		# of the object.
+		self.isParsingDefinition = False
+
+
+	def parse_line(self, line):
+
+		if self.isParsingDefinition:
+			
+			if line.strip():
+				# Case (1): Non-empty line means that we are still parsing the
+				#			objects definition.	
+				self.current_object.parse_line(line)
+
+			else:
+				# Case (2): Empty line means that the definition is ending.
+				self.isParsingDefinition = False
+				self.tokens[self.current_object.name] = self.current_object
+			
+		else:
+			
+			if line.strip() and not Section.is_keyline(line):
+				print '\tCreating new object: %s' %(line)
+				self.current_object = PSObject(line)
+				self.isParsingDefinition = True
+
+
+				
+
+class PSObject(object):
+
+	def __init__(self, line):
+		self.declaration = line
+		self.declaration_tokens = line.split(" ")
+		self.name = self.declaration_tokens[0]
+		if len(self.declaration_tokens) > 1:
+			self.legend = self.declaration_tokens[1]
+
+	def __repr__(self):
+		return "PSOBject(%s)" %(self.declaration)
+
+	def parse_line(self, line):
+		pass
 
 class PreludeSection(Section):
 
@@ -122,17 +195,8 @@ class PreludeSection(Section):
 		self.author = None
 		self.homepage = None
 
-	
-	def parse_line(self,line):
-		match = None
 
-		# Title
-		match = re.match("([a-z]+) +(.+)", line)
-		if match:
-			token = match.group(1)
-			value = match.group(2)
 
-			self.set(token, value)
 
 
 
