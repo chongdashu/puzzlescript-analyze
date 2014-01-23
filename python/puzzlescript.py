@@ -156,8 +156,11 @@ class ObjectsSection(Section):
 class PSObject(object):
 
 	def __init__(self, line):
+		self.definition = []
+
 		self.declaration = line
 		self.declaration_tokens = line.split(" ")
+		
 		self.name = self.declaration_tokens[0]
 		if len(self.declaration_tokens) > 1:
 			self.legend = self.declaration_tokens[1]
@@ -166,7 +169,7 @@ class PSObject(object):
 		return "PSOBject(%s)" %(self.declaration)
 
 	def parse_line(self, line):
-		pass
+		self.definition.append(line)
 
 class PreludeSection(Section):
 
