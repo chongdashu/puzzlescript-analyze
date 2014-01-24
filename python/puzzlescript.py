@@ -105,6 +105,8 @@ class Section(object):
 			return ObjectsSection(sectionType)
 		elif sectionType == Section.TYPE_LEGEND:
 			return LegendSection(sectionType)
+		elif sectionType == Section.TYPE_LEVELS:
+			return LevelsSection(sectionType)
 		else:
 			return Section(sectionType)
 
@@ -120,6 +122,51 @@ class Section(object):
 	@staticmethod
 	def is_keyline(line):
 		return Section.is_section(line) or Section.is_comment(line)
+
+class LevelsSection(Section):
+	def __init__(self, type_):
+		Section.__init__(self,type_)
+
+		# Indicates if already parsed an object declaration
+		# and that we are now currently parsing the definition
+		# of the object.
+		self.isParsingLevel = False
+		self.levels = []
+		self.messages = []
+		self.current_level = None
+
+	def parse_line(self, line):
+		if self.isParsingLevel:
+			
+			if line.strip():
+				# Case (1): Non-empty line means that we are still parsing the
+				#			level definition.	
+				self.current_level.parse_line(line)
+			else:
+				# Case (2): Empty line means that we are done. 
+				self.isParsingLevel = False
+				self.tokens[len(self.levels)] = self.current_level
+				self.levels.append(self.current_level)
+		else:
+			if line.strip() and not Section.is_keyline(line):
+				# Case (3): Non-empty line. Need to check if start of 
+				#			a level, or a message.
+				match = re.match("MESSAGE ((.)+)", line.strip())
+				if match:
+					# Case (3a): A message.
+					print '\tCreating new message: %s' %(line)
+					text = match.group(1)
+					message = PSMessage(text, len(self.levels))
+					self.message.append(message)
+				else:
+					# Case (3b): A level definition start.
+					print '\tCreating new level: %s' %(line)
+					self.current_level = PSLevel()
+					self.current_level.parse_line(line)
+					self.isParsingLevel = True
+
+
+
 
 class LegendSection(Section):
 
@@ -166,8 +213,30 @@ class ObjectsSection(Section):
 				self.current_object = PSObject(line)
 				self.isParsingDefinition = True
 
+class PSMessage(object):
+	def __init__(self, text, last_level_index_=0):
+		self.last_level_index = last_level_index_
+		self.text = text
 
+	def __repr__(self):
+		return "PSMessage(%s,%s)" %(self.last_level_index, self.text)
 				
+class PSLevel(object):
+
+
+
+	def __init__(self):
+		self.definition = []
+		self.width = 0
+		self.height = 0
+
+	def __repr__(self):
+		return "PSLevel[%sx%s](%s)" %(self.width,self.height,self.definition)
+
+	def parse_line(self, line):
+		self.definition.append(line)
+		self.width = len(line)
+		self.height += 1
 
 class PSObject(object):
 
