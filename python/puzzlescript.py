@@ -103,6 +103,8 @@ class Section(object):
 			return PreludeSection(sectionType)
 		elif sectionType == Section.TYPE_OBJECTS:
 			return ObjectsSection(sectionType)
+		elif sectionType == Section.TYPE_LEGEND:
+			return LegendSection(sectionType)
 		else:
 			return Section(sectionType)
 
@@ -118,6 +120,20 @@ class Section(object):
 	@staticmethod
 	def is_keyline(line):
 		return Section.is_section(line) or Section.is_comment(line)
+
+class LegendSection(Section):
+
+	def parse_line(self, line):
+		if line.strip() and not Section.is_keyline(line):
+			print '\tParsing Legend: %s' %(line)
+			line_tokens = line.split("=")
+			key = line_tokens[0].strip()
+			if re.match("[a-zA-Z]+ and [a-zA-Z]+", line_tokens[1].strip()):
+				val = tuple(x.strip() for x in line_tokens[1].strip().split("and"))
+			else:
+				val = tuple(x.strip() for x in line_tokens[1].strip().split("or"))
+			self.tokens[key] = val
+
 
 class ObjectsSection(Section):
 
@@ -169,7 +185,7 @@ class PSObject(object):
 		return "PSOBject(%s)" %(self.declaration)
 
 	def parse_line(self, line):
-		self.definition.append(line)
+		self.definition.append(line)	
 
 class PreludeSection(Section):
 
