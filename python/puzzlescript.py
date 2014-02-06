@@ -103,6 +103,40 @@ class PSRule(object):
 	def __str__(self):
 		return "%s -> %s" %(self.lhs, self.rhs)
 
+class PSWinCondition(object):
+
+	OPERATOR_NO = "no"
+	OPERATOR_ALL = "all"
+	OPERATOR_SOME = "some"
+
+	def __init__(self, line):
+		self.text = line.strip()
+		self.args = []
+		self.condition = ""
+
+		match = re.match("((.)+) ((.)+)\son\s((.)+)", self.text)
+		if match:
+			self.condition = match.group(1)
+			self.args.append(match.group(3))
+			self.args.append(match.group(5))
+		else:
+			match = re.match("((.)+)\s((.)+)", self.text)
+			if match:
+				self.condition = match.group(1)
+				self.args.append(match.group(3))
+
+	def __repr__(self):
+		return "PSWinCondition(%s)" %str(self)
+
+	def __str__(self):
+		string = "[%s] [%s]" %(self.condition, self.args[0])
+		if len(self.args) > 1:
+			string += " on [%s]" %(self.args[1])
+
+		return string
+
+
+
 
 
 # ------- Sections------- #
@@ -187,6 +221,8 @@ class Section(object):
 			return LevelsSection(sectionType)
 		elif sectionType == Section.TYPE_RULES:
 			return RulesSection(sectionType)
+		elif sectionType == Section.TYPE_WINCONDITIONS:
+			return WinConditionsSection(sectionType)
 		else:
 			return Section(sectionType)
 
@@ -202,6 +238,22 @@ class Section(object):
 	@staticmethod
 	def is_keyline(line):
 		return Section.is_section(line) or Section.is_comment(line)
+
+class WinConditionsSection(Section):
+
+	def __init__(self, type_):
+		Section.__init__(self,type_)
+		self.winconditions = []
+
+	def parse_line(self, line):
+		parsed_line = Section.parse_line(self,line)
+		if parsed_line :
+			return
+		if line.strip() and not Section.is_keyline(line):
+			print '\tParsing Win Condition: %s' %(line.strip())
+			wincondition = PSWinCondition(line.strip())
+			self.winconditions.append(wincondition)
+
 
 class RulesSection(Section):
 	def __init__(self, type_):

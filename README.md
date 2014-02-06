@@ -11,8 +11,8 @@ To-dos
 
 - [ ] Parsing the "Sounds" section.
 - [ ] Parsing the "CollisionLayers" section.
-- [ ] Parsing the "WinConditions" section.
 - [ ] Local copies of default PuzzleScript demo scripts.
+- [x] Parsing the "WinConditions" section.
 - [x] Parsing the "Rules" section.
 - [x] Parsing the "Prelude" section.
 - [x] Parsing the "Objects" section.
