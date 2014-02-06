@@ -8,8 +8,8 @@ This is some pretty early stage work, so there isn't anything particularly inter
 
 To-dos
 ------
-- [ ] Parsing the "Sounds" section.
 - [ ] Local copies of default PuzzleScript demo scripts.
+- [X] Parsing the "Sounds" section.
 - [x] Parsing the "CollisionLayers" section.
 - [x] Parsing the "WinConditions" section.
 - [x] Parsing the "Rules" section.

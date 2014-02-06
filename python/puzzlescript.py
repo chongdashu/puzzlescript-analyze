@@ -236,6 +236,8 @@ class Section(object):
 			return WinConditionsSection(sectionType)
 		elif sectionType == Section.TYPE_COLLISIONLAYERS:
 			return CollisionLayersSection(sectionType)
+		elif sectionType == Section.TYPE_SOUNDS:
+			return SoundsSection(sectionType)
 		else:
 			return Section(sectionType)
 
@@ -251,6 +253,20 @@ class Section(object):
 	@staticmethod
 	def is_keyline(line):
 		return Section.is_section(line) or Section.is_comment(line)
+
+class SoundsSection(Section):
+	def __init__(self, type_):
+		Section.__init__(self,type_)
+		self.sounds = []
+
+
+	def parse_line (self, line):
+		if (Section.parse_line(self, line)):
+			return
+		if line.strip() and not Section.is_keyline(line):
+			self.sounds.append(line.strip())
+
+
 
 class CollisionLayersSection(Section):
 
