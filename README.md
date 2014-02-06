@@ -9,11 +9,12 @@ This is some pretty early stage work, so there isn't anything particularly inter
 To-dos
 ------
 
-- [] Parsing the "Sounds" section.
-- [] Parsing the "CollisionLayers" section.
-- [] Parsing the "Rules" section.
-- [] Parsing the "WinConditions" section.
-- [] Local copies of default PuzzleScript demo scripts.
+- [ ] Parsing the "Sounds" section.
+- [ ] Parsing the "CollisionLayers" section.
+- [ ] Parsing the "Rules" section.
+- [ ] Parsing the "WinConditions" section.
+- [ ] Local copies of default PuzzleScript demo scripts.
+- [x] Handle block comments.
 
 
 Done

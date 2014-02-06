@@ -1,3 +1,5 @@
+__author__ = 'Chong-U Lim, culim@mit.edu'
+
 import urllib2,re,json
 
 from bs4 import BeautifulSoup
@@ -28,7 +30,7 @@ if __name__ == "__main__":
 
 	print "PuzzleScript Analyze"
 
-	txt = open("../scripts/basic.txt").read()
+	txt = open("../scripts/limerick.txt").read()
 	script = Script(txt)
 
 
