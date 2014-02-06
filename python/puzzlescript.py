@@ -136,6 +136,17 @@ class PSWinCondition(object):
 		return string
 
 
+class PSCollisionLayer(object):
+
+	def __init__(self, line):
+		self.objects = line.strip().split(',')
+
+	def __repr__(self):
+		return "PSCollisionLayer(%s)" %str(self)
+
+	def __str__(self):
+		return str(self.objects)
+
 
 
 
@@ -223,6 +234,8 @@ class Section(object):
 			return RulesSection(sectionType)
 		elif sectionType == Section.TYPE_WINCONDITIONS:
 			return WinConditionsSection(sectionType)
+		elif sectionType == Section.TYPE_COLLISIONLAYERS:
+			return CollisionLayersSection(sectionType)
 		else:
 			return Section(sectionType)
 
@@ -238,6 +251,20 @@ class Section(object):
 	@staticmethod
 	def is_keyline(line):
 		return Section.is_section(line) or Section.is_comment(line)
+
+class CollisionLayersSection(Section):
+
+	def __init__(self, type_):
+		Section.__init__(self,type_)
+		self.collisionlayers = []
+
+	def parse_line (self, line):
+		if Section.parse_line(self,line):
+			return
+		if line.strip() and not Section.is_keyline(line):
+			layer = PSCollisionLayer(line)
+			self.collisionlayers.append(layer)
+
 
 class WinConditionsSection(Section):
 
