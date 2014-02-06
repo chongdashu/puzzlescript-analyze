@@ -41,6 +41,8 @@ class Script(object):
 
 		return section
 
+	def __getitem__(self, index):
+		return self.sections[index.lower()]
  
 	def __repr__(self):
 		return "sections: %s" %(self.sections.keys())
@@ -86,6 +88,22 @@ class PSObject(object):
 
 	def parse_line(self, line):
 		self.definition.append(line)
+
+class PSRule(object):
+
+	def __init__(self, line):
+		match = re.match("((.)+) -> ((.)+)", line)
+		if match:
+			self.lhs = match.group(1)
+			self.rhs = match.group(3)
+
+	def __repr__(self):
+		return "PSRule(%s)" %str(self)
+
+	def __str__(self):
+		return "%s -> %s" %(self.lhs, self.rhs)
+
+
 
 # ------- Sections------- #
 class Section(object):
@@ -194,9 +212,14 @@ class RulesSection(Section):
 		parsed_line = Section.parse_line(self,line)
 		if parsed_line:
 			return
-		if line.strip() and not Section.is_keyline(line) and not self.is_parsing_comment:
+
+		if line.strip() and not Section.is_keyline(line):
 			print '\tParsing Rule: %s' %(line.strip())
-			self.rules.append(line.strip())
+			rule = PSRule(line.strip())
+
+			self.rules.append(rule)
+
+			self.tokens[rule.lhs] = rule
 
 
 class LevelsSection(Section):

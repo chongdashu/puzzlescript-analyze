@@ -14,14 +14,10 @@ To-dos
 - [ ] Parsing the "Rules" section.
 - [ ] Parsing the "WinConditions" section.
 - [ ] Local copies of default PuzzleScript demo scripts.
-- [x] Handle block comments.
-
-
-Done
-----
-
 - [x] Parsing the "Prelude" section.
 - [x] Parsing the "Objects" section.
 - [x] Parsing the "Legend" section.
 - [x] Parsing the "Levels" section.
 - [x] Script to download PuzzleScript sources from the Gallery.
+- [x] Handle block comments.
+- [x] Indexing a script should automatically index its sections field.
