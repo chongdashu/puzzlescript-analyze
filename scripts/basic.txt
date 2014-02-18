@@ -23,7 +23,7 @@ DarkBlue
 .000.
 .....
 
-Wall
+Wall W
 BROWN DARKBROWN
 00010
 11111

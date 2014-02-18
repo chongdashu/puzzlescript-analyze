@@ -9,6 +9,17 @@ This is some pretty early stage work, so there isn't anything particularly inter
 To-dos
 ------
 - [ ] Local copies of default PuzzleScript demo scripts.
+- [ ] Rule mutations with constraints.
+- [ ] Stats generation
+	- [ ] Number of levels.
+	- [ ] Number of rules.
+	- [ ] Number of win conditions.
+	- [ ] Number of collision layers.
+	- [ ] Number of objects.
+	- [ ] Size of levels (width/height).
+	- [ ] Number of colors used for objects.
+	- [ ] Size of objects.
+	- [ ] Rating (where possible)
 - [X] Parsing the "Sounds" section.
 - [x] Parsing the "CollisionLayers" section.
 - [x] Parsing the "WinConditions" section.

@@ -1,0 +1,18 @@
+Crate 
+Orange 
+
+Player P
+PINK WHITE BLACK    
+.222.
+.000.
+22122
+.222.
+.2.2.
+
+EyeBall
+White Blue Red
+.000.
+00100
+01110
+20102
+.202.
