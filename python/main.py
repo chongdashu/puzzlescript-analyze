@@ -1,6 +1,6 @@
 __author__ = 'Chong-U Lim, culim@mit.edu'
 
-import urllib2,re,json
+import urllib2,re,json,os
 
 from bs4 import BeautifulSoup
 from puzzlescript import Script
@@ -31,10 +31,25 @@ if __name__ == "__main__":
 
 	print "PuzzleScript Analyze"
 
-	txt = open("../scripts/limerick.txt").read()
+	# Test 1: Open a puzzle script file and convert to PuzzleScript obj.
+	f = open("../scripts/limerick.txt")
+	txt = f.read()
 	script = Script(txt)
+	f.close()
 
-	analyzer = Analyzer(script)
+	# Test 2: Try opening all the scripts in the '../scripts' directory.
+	scripts = []
+	folderpath = os.path.normpath('../scripts') + os.sep
+	for filename in os.listdir(folderpath):
+		print ("Parsing: %s\n-------------") %(filename)
+		filepath = folderpath + filename
+		
+		temp_file = open(filepath)
+		temp_txt = temp_file.read()
+		temp_script = Script(temp_txt)
+		
+		scripts.append(temp_script)
+		temp_file.close()
 
 
 

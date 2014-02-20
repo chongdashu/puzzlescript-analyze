@@ -9,7 +9,8 @@ Requirements
 ------------
 For most any Python libraries, I make use of virtualenv and pip as they help keep my Python environments separate per project I use. 
 
-* Beautiful Soup 4 (beautifulsoup4) http://www.crummy.com/software/BeautifulSoup/
+* Beautiful Soup 4 (beautifulsoup4) 
+http://www.crummy.com/software/BeautifulSoup/
 
 Quick-Start
 -----------
@@ -47,6 +48,7 @@ To-dos
 	- [ ] Number of colors used for objects.
 	- [ ] Size of objects.
 	- [ ] Rating (where possible)
+- [x] Handle startloop and endloop in rules.
 - [X] Parsing the "Sounds" section.
 - [x] Parsing the "CollisionLayers" section.
 - [x] Parsing the "WinConditions" section.

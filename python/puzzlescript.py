@@ -45,7 +45,7 @@ class Script(object):
 		return self.sections[index.lower()]
  
 	def __repr__(self):
-		return "sections: %s" %(self.sections.keys())
+		return "Script(%s)" %(self.sections.keys())
 
 # ------- Elements ------- #
 class PSMessage(object):
@@ -92,7 +92,7 @@ class PSObject(object):
 class PSRule(object):
 
 	def __init__(self, line):
-		match = re.match("((.)+) -> ((.)+)", line)
+		match = re.match("((.)+)\s*->\s*((.)+)", line)
 		if match:
 			self.lhs = match.group(1)
 			self.rhs = match.group(3)
@@ -204,7 +204,6 @@ class Section(object):
 		match = re.match("\((.)+", line)
 
 		if match:
-			print "match.group(1)=%s" %match.group(1)
 
 			if not match.group(1) == ")":
 				self.is_parsing_comment = True
@@ -302,20 +301,30 @@ class RulesSection(Section):
 	def __init__(self, type_):
 		Section.__init__(self,type_)
 		self.rules = []
+		self.loops = []
+		self.current_loop = None
 
 	def parse_line(self, line):
 		parsed_line = Section.parse_line(self,line)
 		if parsed_line:
 			return
 
-		if line.strip() and not Section.is_keyline(line):
+		if line.strip() and line.strip().lower() == "startloop":
+			self.current_loop = [];
+
+		elif line.strip() and line.strip().lower() == "endloop":
+			self.loops.append(self.current_loop)
+			self.current_loop = None
+
+		elif line.strip() and not Section.is_keyline(line):
 			print '\tParsing Rule: %s' %(line.strip())
 			rule = PSRule(line.strip())
 
 			self.rules.append(rule)
-
 			self.tokens[rule.lhs] = rule
 
+			if self.current_loop is not None:
+				self.current_loop.append(rule)
 
 class LevelsSection(Section):
 	def __init__(self, type_):
@@ -351,7 +360,7 @@ class LevelsSection(Section):
 					print '\tCreating new message: %s' %(line)
 					text = match.group(1)
 					message = PSMessage(text, len(self.levels))
-					self.message.append(message)
+					self.messages.append(message)
 				else:
 					# Case (3b): A level definition start.
 					print '\tCreating new level: %s' %(line)
