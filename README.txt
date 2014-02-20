@@ -9,16 +9,14 @@ Requirements
 ------------
 For most any Python libraries, I make use of virtualenv and pip as they help keep my Python environments separate per project I use. 
 
-- Beautiful Soup 4 (beautifulsoup4)
+* Beautiful Soup 4 (beautifulsoup4) http://www.crummy.com/software/BeautifulSoup/
 
 Quick-Start
 -----------
+The easiest way to get started is to just load a puzzlescript file. Assuming you have the PuzzleScript script stored as game.txt:
 
-The easiest way to get started is to just load the main .py file.
-
-> python -i main.py
-
-This should load a simple PuzzleScript script file and store it as a PuzzleScript object named 'script'. The currently loaded script is 'limerick'.
+> txt = open("../scripts/limerick.txt").read()
+> script = PuzzleScript(txt)
 
 You can get the various sections in the following way:
 
@@ -34,11 +32,12 @@ To-dos
 - [ ] Local copies of default PuzzleScript demo scripts.
 - [ ] Rule mutations with constraints.
 - [ ] Stats generation
-	- [ ] Number of levels.
-	- [ ] Number of rules.
-	- [ ] Number of win conditions.
-	- [ ] Number of collision layers.
-	- [ ] Number of objects.
+	- [X] Number of levels.
+	- [X] Number of rules.
+	- [X] Number of win conditions.
+	- [X] Number of collision layers.
+	- [X] Number of objects.
+	- [X] Number of legends.
 	- [ ] Size of levels (width/height).
 	- [ ] Number of colors used for objects.
 	- [ ] Size of objects.

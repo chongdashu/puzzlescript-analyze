@@ -4,6 +4,7 @@ import urllib2,re,json
 
 from bs4 import BeautifulSoup
 from puzzlescript import Script
+from analyzer import Analyzer
 
 
 def parse_url(url):
@@ -32,6 +33,8 @@ if __name__ == "__main__":
 
 	txt = open("../scripts/limerick.txt").read()
 	script = Script(txt)
+
+	analyzer = Analyzer(script)
 
 
 
