@@ -13,9 +13,9 @@ For most any Python libraries, I make use of virtualenv and pip as they help kee
 
 Quick-Start
 -----------
-The easiest way to get started is to just load a puzzlescript file. Assuming you have the PuzzleScript script stored as game.txt:
+The easiest way to get started is to just load a puzzlescript file. Assuming you have the PuzzleScript script stored as game.txt (here we are using the Lime Rick example):
 
-> txt = open("../scripts/limerick.txt").read()
+> txt = open("../scripts/game.txt").read()
 > script = PuzzleScript(txt)
 
 You can get the various sections in the following way:
@@ -25,6 +25,11 @@ OBJECTS{['PlayerHead4', 'Apple', 'PlayerBodyV', 'PlayerHead1', 'PlayerHead2', 'P
 
 > script['rules']
 RULES{['UP [ UP PlayerHead4 ]', 'Horizontal [ > Player | Crate | No Obstacle ]', 'DOWN [ Player | No Obstacle ]', 'UP [ UP PlayerHead3 | No Obstacle ]', '[ > Player ]', 'DOWN [ Crate | No Obstacle ]', 'Horizontal [ > Player | No Obstacle ]', 'UP [ UP PlayerHead1 | No Obstacle ]', 'UP [ UP PlayerHead2 | No Obstacle ]', '[ Player Apple ]', '[ Player Apple ] [ PlayerBody ]']}
+
+Thanks
+------
+- Stephen Lavelle (@increpare) for creating PuzzleScript.
+- Toomi Tuovinen (www.kissmaj7.com) for porting 'Lime Rick' to PuzzleScript.
 
 
 To-dos
