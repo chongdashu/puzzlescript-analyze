@@ -373,6 +373,10 @@ class LevelsSection(Section):
 
 class LegendSection(Section):
 
+	def __init__(self, type_):
+		Section.__init__(self,type_)
+		self.legends = self.tokens
+
 	def parse_line(self, line):
 		if line.strip() and not Section.is_keyline(line):
 			print '\tParsing Legend: %s' %(line)
@@ -393,7 +397,7 @@ class ObjectsSection(Section):
 		# and that we are now currently parsing the definition
 		# of the object.
 		self.isParsingDefinition = False
-
+		self.objects = self.tokens
 
 	def parse_line(self, line):
 

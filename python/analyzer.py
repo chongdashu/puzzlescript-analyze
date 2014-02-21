@@ -18,10 +18,10 @@ class Analyzer(object):
 		return len(self.puzzlescript['collisionlayers'].collisionlayers)
 
 	def get_number_of_legends(self):
-		len(self.puzzlescript['legend'].tokens)
+		len(self.puzzlescript['legend'].legends)
 
 	def get_number_of_objects(self):
-		len(self.puzzlescript['objects'].tokens)
+		len(self.puzzlescript['objects'].objects)
 
 	def get_number_of_rule_loops(self):
 		len(self.puzzlescript['rules'].loops)
