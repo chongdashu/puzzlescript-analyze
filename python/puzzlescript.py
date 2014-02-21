@@ -354,7 +354,7 @@ class LevelsSection(Section):
 			if line.strip() and not Section.is_keyline(line):
 				# Case (3): Non-empty line. Need to check if start of 
 				#			a level, or a message.
-				match = re.match("MESSAGE ((.)+)", line.strip())
+				match = re.match("MESSAGE ((.)+)", line.strip(), re.IGNORECASE)
 				if match:
 					# Case (3a): A message.
 					print '\tCreating new message: %s' %(line)

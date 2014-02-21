@@ -44,6 +44,8 @@ To-dos
 	- [X] Number of collision layers.
 	- [X] Number of objects.
 	- [X] Number of legends.
+	- [X] Number of rule loops.
+	- [X] Number of messages.
 	- [ ] Size of levels (width/height).
 	- [ ] Number of colors used for objects.
 	- [ ] Size of objects.

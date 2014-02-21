@@ -22,3 +22,9 @@ class Analyzer(object):
 
 	def get_number_of_objects(self):
 		len(self.puzzlescript['objects'].tokens)
+
+	def get_number_of_rule_loops(self):
+		len(self.puzzlescript['rules'].loops)
+
+	def get_number_of_messages(self):
+		len(self.puzzlescript['levels'].messages)
