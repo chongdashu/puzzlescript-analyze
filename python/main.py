@@ -27,6 +27,28 @@ def download_gallery_scripts():
 		f.write(content.encode('utf-8'))
 		f.close()
 
+def fill(level, row, col, oldchar, newchar):
+
+	if oldchar == None:
+		oldchar = level.definition[row][col]
+
+	if not level.definition[row][col] == oldchar:
+		return
+
+	level.definition[row][col] = newchar
+
+	if col > 0:
+		fill(level, row, col-1, oldchar, newchar)
+
+	if col < level.width-1:
+		fill(level, row, col+1, oldchar, newchar)
+
+	if row > 0:
+		fill(level, row-1, col, oldchar, newchar)
+
+	if row < level.height-1:
+		fill(level, row+1, col, oldchar, newchar)
+
 if __name__ == "__main__":
 
 	print "PuzzleScript Analyze"
@@ -56,12 +78,15 @@ if __name__ == "__main__":
 			scripts.append(temp_script)
 			temp_file.close()
 
-	# Test 3: Map serialization and conversion.
+	# Test 3: Level serialization and conversion.
 	level1 = script['levels'].levels[0]
 	string1 = level1.serialize()
 	string2 = PSLevel.level_to_string(level1)
 	string1 == string2
 	level2 = PSLevel.string_to_level(string2, level1.width, level1.height)
+
+	# Test 4: Level Flood-Fill
+
 
 
 

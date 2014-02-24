@@ -37,7 +37,7 @@ To-dos
 ------
 - [ ] Local copies of default PuzzleScript demo scripts.
 - [ ] Rule mutations with constraints.
-- [ ] Debug Logger
+- [ ] Debug Logger	
 - [ ] Stats generation
 	- [X] Number of levels.
 	- [X] Number of rules.
@@ -52,7 +52,7 @@ To-dos
 	- [ ] Size of objects.
 	- [ ] Rating (where possible)
 - [ ] Map Analysis
-	- [ ] Flood-fill
+	- [X] Flood-fill
 	- [ ] Fragmentation (i.e., number of islands)
 	- [ ] Domination
 - [x] Handle startloop and endloop in rules.

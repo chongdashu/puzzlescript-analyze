@@ -1,6 +1,6 @@
 __author__ = 'Chong-U Lim, culim@mit.edu'
 
-import re
+import re,sys,os
 
 class Script(object):
 
@@ -67,7 +67,7 @@ class PSLevel(object):
 		return "PSLevel[%sx%s](%s)" %(self.width,self.height,self.definition)
 
 	def parse_line(self, line):
-		self.definition.append(line)
+		self.definition.append(list(line))
 		self.width = len(line)
 		self.height += 1
 
@@ -83,13 +83,20 @@ class PSLevel(object):
 		'''
 		return list(set("".join(self.definition)))
 
+	def output(self):
+		for r in range(self.height):
+			for c in range(self.width):
+					sys.stdout.write(self.definition[r][c]);
+			sys.stdout.write(os.linesep)
+
 	@staticmethod
 	def level_to_string(level):
 		'''
 		Returns the given level flattened as a single string.
 		@param level a PSLevel object.
 		'''
-		return "".join(level.definition)
+		definition = level.definition[:]
+		return "".join(["".join(col) for col in definition])
 
 	@staticmethod
 	def string_to_level(string, width, height):
