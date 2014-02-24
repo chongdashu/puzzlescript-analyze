@@ -3,7 +3,7 @@ __author__ = 'Chong-U Lim, culim@mit.edu'
 import urllib2,re,json,os
 
 from bs4 import BeautifulSoup
-from puzzlescript import Script
+from puzzlescript import Script, PSLevel
 from analyzer import Analyzer
 
 
@@ -31,25 +31,37 @@ if __name__ == "__main__":
 
 	print "PuzzleScript Analyze"
 
+	test1 = True
+	test2 = False
+
 	# Test 1: Open a puzzle script file and convert to PuzzleScript obj.
-	f = open("../scripts/limerick.txt")
-	txt = f.read()
-	script = Script(txt)
-	f.close()
+	if test1:
+		f = open("../scripts/basic.txt")
+		txt = f.read()
+		script = Script(txt)
+		f.close()
 
 	# Test 2: Try opening all the scripts in the '../scripts' directory.
-	scripts = []
-	folderpath = os.path.normpath('../scripts') + os.sep
-	for filename in os.listdir(folderpath):
-		print ("Parsing: %s\n-------------") %(filename)
-		filepath = folderpath + filename
-		
-		temp_file = open(filepath)
-		temp_txt = temp_file.read()
-		temp_script = Script(temp_txt)
-		
-		scripts.append(temp_script)
-		temp_file.close()
+	if test2:
+		scripts = []
+		folderpath = os.path.normpath('../scripts') + os.sep
+		for filename in os.listdir(folderpath):
+			print ("Parsing: %s\n-------------") %(filename)
+			filepath = folderpath + filename
+			
+			temp_file = open(filepath)
+			temp_txt = temp_file.read()
+			temp_script = Script(temp_txt)
+			
+			scripts.append(temp_script)
+			temp_file.close()
+
+	# Test 3: Map serialization and conversion.
+	level1 = script['levels'].levels[0]
+	string1 = level1.serialize()
+	string2 = PSLevel.level_to_string(level1)
+	string1 == string2
+	level2 = PSLevel.string_to_level(string2, level1.width, level1.height)
 
 
 

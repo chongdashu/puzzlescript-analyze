@@ -71,12 +71,40 @@ class PSLevel(object):
 		self.width = len(line)
 		self.height += 1
 
+	def serialize(self):
+		'''
+		Returns the level flattened as a single string.
+		'''
+		return PSLevel.level_to_string(self)
+
 	def get_symbols(self):
 		'''
 		Returns a list of all the symbols (legend characters) used in this level.
 		'''
-		list(set("".join(self.definition)))
+		return list(set("".join(self.definition)))
 
+	@staticmethod
+	def level_to_string(level):
+		'''
+		Returns the given level flattened as a single string.
+		@param level a PSLevel object.
+		'''
+		return "".join(level.definition)
+
+	@staticmethod
+	def string_to_level(string, width, height):
+		'''
+		Returns the given level flattened as a single string.
+		@param level a PSLevel object.
+		'''
+		level = PSLevel()
+		for r in range(height):
+			startIndex = r*width
+			endIndex = startIndex+width
+			row = string[startIndex:endIndex]
+			level.parse_line(row)
+
+		return level
 
 class PSObject(object):
 
@@ -357,6 +385,7 @@ class LevelsSection(Section):
 				self.isParsingLevel = False
 				self.tokens[len(self.levels)] = self.current_level
 				self.levels.append(self.current_level)
+				print '\tCreated new level: %s' %(self.current_level)
 		else:
 			if line.strip() and not Section.is_keyline(line):
 				# Case (3): Non-empty line. Need to check if start of 
@@ -370,7 +399,7 @@ class LevelsSection(Section):
 					self.messages.append(message)
 				else:
 					# Case (3b): A level definition start.
-					print '\tCreating new level: %s' %(line)
+					# print '\tCreating new level: %s' %(line)
 					self.current_level = PSLevel()
 					self.current_level.parse_line(line)
 					self.isParsingLevel = True
