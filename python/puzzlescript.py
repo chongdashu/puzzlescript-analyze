@@ -71,6 +71,13 @@ class PSLevel(object):
 		self.width = len(line)
 		self.height += 1
 
+	def get_symbols(self):
+		'''
+		Returns a list of all the symbols (legend characters) used in this level.
+		'''
+		list(set("".join(self.definition)))
+
+
 class PSObject(object):
 
 	def __init__(self, line):

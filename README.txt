@@ -27,16 +27,17 @@ OBJECTS{['PlayerHead4', 'Apple', 'PlayerBodyV', 'PlayerHead1', 'PlayerHead2', 'P
 > script['rules']
 RULES{['UP [ UP PlayerHead4 ]', 'Horizontal [ > Player | Crate | No Obstacle ]', 'DOWN [ Player | No Obstacle ]', 'UP [ UP PlayerHead3 | No Obstacle ]', '[ > Player ]', 'DOWN [ Crate | No Obstacle ]', 'Horizontal [ > Player | No Obstacle ]', 'UP [ UP PlayerHead1 | No Obstacle ]', 'UP [ UP PlayerHead2 | No Obstacle ]', '[ Player Apple ]', '[ Player Apple ] [ PlayerBody ]']}
 
-Thanks
-------
+Credits & Thanks
+----------------
 - Stephen Lavelle (@increpare) for creating PuzzleScript.
 - Toomi Tuovinen (www.kissmaj7.com) for porting 'Lime Rick' to PuzzleScript.
-
+- Michael Cook (@mtrc)
 
 To-dos
 ------
 - [ ] Local copies of default PuzzleScript demo scripts.
 - [ ] Rule mutations with constraints.
+- [ ] Debug Logger
 - [ ] Stats generation
 	- [X] Number of levels.
 	- [X] Number of rules.
@@ -50,6 +51,10 @@ To-dos
 	- [ ] Number of colors used for objects.
 	- [ ] Size of objects.
 	- [ ] Rating (where possible)
+- [ ] Map Analysis
+	- [ ] Flood-fill
+	- [ ] Fragmentation (i.e., number of islands)
+	- [ ] Domination
 - [x] Handle startloop and endloop in rules.
 - [X] Parsing the "Sounds" section.
 - [x] Parsing the "CollisionLayers" section.
@@ -62,3 +67,7 @@ To-dos
 - [x] Script to download PuzzleScript sources from the Gallery.
 - [x] Handle block comments.
 - [x] Indexing a script should automatically index its sections field.
+
+Notes
+-----
+
