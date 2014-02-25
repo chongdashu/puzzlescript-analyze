@@ -1,6 +1,6 @@
 __author__ = 'Chong-U Lim, culim@mit.edu'
 
-import re,sys,os
+import re,sys,os,copy
 
 class Script(object):
 
@@ -82,6 +82,28 @@ class PSLevel(object):
 		Returns a list of all the symbols (legend characters) used in this level.
 		'''
 		return list(set("".join(self.definition)))
+
+	def fill(self, row, col, oldchar, newchar):
+
+		if oldchar == None:
+			oldchar = self.definition[row][col]
+
+		if not self.definition[row][col] == oldchar:
+			return
+
+		self.definition[row][col] = newchar
+
+		if col > 0:
+			self.fill(row, col-1, oldchar, newchar)
+
+		if col < self.width-1:
+			self.fill(row, col+1, oldchar, newchar)
+
+		if row > 0:
+			self.fill(row-1, col, oldchar, newchar)
+
+		if row < self.height-1:
+			self.fill(row+1, col, oldchar, newchar)
 
 	def output(self):
 		for r in range(self.height):

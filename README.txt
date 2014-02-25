@@ -31,7 +31,7 @@ Credits & Thanks
 ----------------
 - Stephen Lavelle (@increpare) for creating PuzzleScript.
 - Toomi Tuovinen (www.kissmaj7.com) for porting 'Lime Rick' to PuzzleScript.
-- Michael Cook (@mtrc)
+- Michael Cook (@mtrc) for his work on fitness function of game components.
 
 To-dos
 ------
@@ -51,10 +51,12 @@ To-dos
 	- [ ] Number of colors used for objects.
 	- [ ] Size of objects.
 	- [ ] Rating (where possible)
-- [ ] Map Analysis
+- [ ] Level Analysis
 	- [X] Flood-fill
 	- [ ] Fragmentation (i.e., number of islands)
 	- [ ] Domination
+	- [ ] Sparseness
+	- [ ] Volume
 - [x] Handle startloop and endloop in rules.
 - [X] Parsing the "Sounds" section.
 - [x] Parsing the "CollisionLayers" section.

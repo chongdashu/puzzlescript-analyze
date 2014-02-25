@@ -27,34 +27,15 @@ def download_gallery_scripts():
 		f.write(content.encode('utf-8'))
 		f.close()
 
-def fill(level, row, col, oldchar, newchar):
-
-	if oldchar == None:
-		oldchar = level.definition[row][col]
-
-	if not level.definition[row][col] == oldchar:
-		return
-
-	level.definition[row][col] = newchar
-
-	if col > 0:
-		fill(level, row, col-1, oldchar, newchar)
-
-	if col < level.width-1:
-		fill(level, row, col+1, oldchar, newchar)
-
-	if row > 0:
-		fill(level, row-1, col, oldchar, newchar)
-
-	if row < level.height-1:
-		fill(level, row+1, col, oldchar, newchar)
-
 if __name__ == "__main__":
 
 	print "PuzzleScript Analyze"
 
 	test1 = True
-	test2 = False
+	test2 = True
+
+	scripts = []
+	scriptsfolderpath = os.path.normpath('../scripts') + os.sep
 
 	# Test 1: Open a puzzle script file and convert to PuzzleScript obj.
 	if test1:
@@ -65,11 +46,10 @@ if __name__ == "__main__":
 
 	# Test 2: Try opening all the scripts in the '../scripts' directory.
 	if test2:
-		scripts = []
-		folderpath = os.path.normpath('../scripts') + os.sep
-		for filename in os.listdir(folderpath):
+		
+		for filename in os.listdir(scriptsfolderpath):
 			print ("Parsing: %s\n-------------") %(filename)
-			filepath = folderpath + filename
+			filepath = scriptsfolderpath + filename
 			
 			temp_file = open(filepath)
 			temp_txt = temp_file.read()
@@ -85,7 +65,12 @@ if __name__ == "__main__":
 	string1 == string2
 	level2 = PSLevel.string_to_level(string2, level1.width, level1.height)
 
-	# Test 4: Level Flood-Fill
+	# Test 4: Level Flood-Fill walls with question-marks.
+	level3 = PSLevel.string_to_level(string1, level1.width, level1.height)
+	level3.fill(2,3,None,'?')
+
+	# Test 5: Load microban script.
+	microban = scripts[os.listdir(scriptsfolderpath).index('microban.txt')]
 
 
 

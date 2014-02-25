@@ -28,3 +28,25 @@ class Analyzer(object):
 
 	def get_number_of_messages(self):
 		len(self.puzzlescript['levels'].messages)
+
+class LevelAnalyzer(object):
+	def __init__(self, level):
+		self.level = level
+
+	def get_fragmentation_score(self, level, character):
+		'''
+		Returns the number of islands in this level that 
+		contain the specified character.
+		'''
+
+	def get_domination_score(self, level, character):
+		'''
+		'''
+
+	def get_sparseness_score(self, level, character):
+		'''
+		'''
+
+	def get_volume_score(self, level, character):
+		'''
+		'''
