@@ -71,6 +71,13 @@ if __name__ == "__main__":
 
 	# Test 5: Load microban script.
 	microban = scripts[os.listdir(scriptsfolderpath).index('microban.txt')]
+	atlas =  scripts[os.listdir(scriptsfolderpath).index('atlas.txt')]
+	# Test 6: Analyze selected scripts
+	for scriptName in ['microban','blockfaker','limerick', 'atlas', 'colourchained']:
+		script = scripts[os.listdir(scriptsfolderpath).index(scriptName+'.txt')]
+		analyer = Analyzer(script)
+		analyer.printStats(scriptName)
+
 
 
 
